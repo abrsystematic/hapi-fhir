@@ -27,6 +27,7 @@ import ca.uhn.fhir.model.valueset.BundleTypeEnum;
 import ca.uhn.fhir.rest.api.Constants;
 import ca.uhn.fhir.rest.api.IVersionSpecificBundleFactory;
 import ca.uhn.fhir.util.ResourceReferenceInfo;
+import ca.uhn.fhir.util.UrlUtil;
 import org.hl7.fhir.instance.model.Bundle;
 import org.hl7.fhir.instance.model.Bundle.BundleEntryComponent;
 import org.hl7.fhir.instance.model.Bundle.BundleLinkComponent;
@@ -36,6 +37,7 @@ import org.hl7.fhir.instance.model.IdType;
 import org.hl7.fhir.instance.model.InstantType;
 import org.hl7.fhir.instance.model.Resource;
 import org.hl7.fhir.instance.model.api.*;
+import org.hl7.fhir.utilities.Utilities;
 
 import java.util.*;
 
@@ -226,7 +228,7 @@ public class Dstu2Hl7OrgBundleFactory implements IVersionSpecificBundleFactory {
       myBundle.setId(theId);
     }
     if (isBlank(myBundle.getId())) {
-      myBundle.setId(UUID.randomUUID().toString());
+      myBundle.setId(UrlUtil.randomUUID().toString());
     }
 
     if (myBundle.getMeta().getLastUpdated() == null) {
@@ -281,7 +283,7 @@ public class Dstu2Hl7OrgBundleFactory implements IVersionSpecificBundleFactory {
                                                String theServerBase, String theCompleteUrl, int theTotalResults, BundleTypeEnum theBundleType) {
     ensureBundle();
 
-    myBundle.setId(UUID.randomUUID().toString());
+    myBundle.setId(UrlUtil.randomUUID().toString());
 
     myBundle.getMeta().setLastUpdatedElement(InstantType.withCurrentTime());
 

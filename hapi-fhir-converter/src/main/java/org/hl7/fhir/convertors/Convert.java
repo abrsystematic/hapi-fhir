@@ -58,6 +58,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import ca.uhn.fhir.util.UrlUtil;
 import org.hl7.fhir.dstu3.model.Address;
 import org.hl7.fhir.dstu3.model.Address.AddressUse;
 import org.hl7.fhir.dstu3.model.CodeableConcept;
@@ -111,7 +112,7 @@ public class Convert {
 		String ex;
 		if (e.hasAttribute("extension") && Utilities.noString(e.getAttribute("extension"))) {
 			if (generateMissingExtensions) 
-				ex = UUID.randomUUID().toString();
+				ex = UrlUtil.randomUUID().toString();
 			else
 				throw new Exception("Broken identifier - extension is blank");
 		} else 

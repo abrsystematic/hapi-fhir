@@ -13,6 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.security.SecureRandom;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -45,6 +46,7 @@ public class UrlUtil {
 
 	private static final String URL_FORM_PARAMETER_OTHER_SAFE_CHARS = "-_.*";
 	private static final Escaper PARAMETER_ESCAPER = new PercentEscaper(URL_FORM_PARAMETER_OTHER_SAFE_CHARS, false);
+	private static final ThreadLocal<SecureRandom> SECURE_RANDOM_THREAD_LOCAL = ThreadLocal.withInitial(SecureRandom::new);
 
 
 	/**
@@ -67,6 +69,25 @@ public class UrlUtil {
 			ourLog.warn("Failed to resolve relative URL[" + theEndpoint + "] against absolute base[" + theBase + "]", e);
 			return theEndpoint;
 		}
+	}
+	public static UUID randomUUID() {
+		SecureRandom ng = SECURE_RANDOM_THREAD_LOCAL.get();
+		byte[] randomBytes = new byte[16];
+		ng.nextBytes(randomBytes);
+		randomBytes[6] = (byte)(randomBytes[6] & 15);
+		randomBytes[6] = (byte)(randomBytes[6] | 64);
+		randomBytes[8] = (byte)(randomBytes[8] & 63);
+		randomBytes[8] = (byte)(randomBytes[8] | 128);
+		long msb = 0L;
+		long lsb = 0L;
+		int i;
+		for(i = 0; i < 8; ++i) {
+			msb = msb << 8 | (long)(randomBytes[i] & 255);
+		}
+		for(i = 8; i < 16; ++i) {
+			lsb = lsb << 8 | (long)(randomBytes[i] & 255);
+		}
+		return new UUID(msb,lsb);
 	}
 
 	public static String constructRelativeUrl(String theParentExtensionUrl, String theExtensionUrl) {

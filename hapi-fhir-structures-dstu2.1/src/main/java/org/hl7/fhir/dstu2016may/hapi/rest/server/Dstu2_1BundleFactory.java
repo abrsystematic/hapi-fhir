@@ -23,6 +23,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import java.util.*;
 
+import ca.uhn.fhir.util.UrlUtil;
 import org.hl7.fhir.dstu2016may.model.*;
 import org.hl7.fhir.dstu2016may.model.Bundle.*;
 import org.hl7.fhir.instance.model.api.*;
@@ -236,7 +237,7 @@ public class Dstu2_1BundleFactory implements IVersionSpecificBundleFactory {
 			myBundle.setId(theId);
 		}
 		if (myBundle.getIdElement().isEmpty()) {
-			myBundle.setId(UUID.randomUUID().toString());
+			myBundle.setId(UrlUtil.randomUUID().toString());
 		}
 
 		if (myBundle.getMeta().getLastUpdated() == null && theLastUpdated != null) {
@@ -287,7 +288,7 @@ public class Dstu2_1BundleFactory implements IVersionSpecificBundleFactory {
 			BundleTypeEnum theBundleType) {
 		ensureBundle();
 
-		myBundle.setId(UUID.randomUUID().toString());
+		myBundle.setId(UrlUtil.randomUUID().toString());
 
 		myBundle.getMeta().setLastUpdated(new Date());
 

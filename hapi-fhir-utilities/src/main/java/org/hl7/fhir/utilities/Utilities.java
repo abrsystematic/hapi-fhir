@@ -57,6 +57,7 @@ import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import ca.uhn.fhir.util.UrlUtil;
 import org.apache.commons.io.FileUtils;
 import org.hl7.fhir.exceptions.FHIRException;
 
@@ -762,7 +763,7 @@ public class Utilities {
 
 
   public static String makeUuidUrn() {
-    return "urn:uuid:"+UUID.randomUUID().toString().toLowerCase();
+    return "urn:uuid:"+ UrlUtil.randomUUID().toString().toLowerCase();
   }
 
   public static boolean isURL(String s) {

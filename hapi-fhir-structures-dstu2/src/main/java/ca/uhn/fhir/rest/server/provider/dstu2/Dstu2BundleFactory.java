@@ -23,6 +23,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import java.util.*;
 
+import ca.uhn.fhir.util.UrlUtil;
 import org.hl7.fhir.instance.model.api.*;
 
 import ca.uhn.fhir.context.FhirContext;
@@ -229,7 +230,7 @@ public class Dstu2BundleFactory implements IVersionSpecificBundleFactory {
 			myBundle.setId(theId);
 		}
 		if (myBundle.getId().isEmpty()) {
-			myBundle.setId(UUID.randomUUID().toString());
+			myBundle.setId(UrlUtil.randomUUID().toString());
 		}
 
 		if (ResourceMetadataKeyEnum.UPDATED.get(myBundle) == null) {
@@ -280,7 +281,7 @@ public class Dstu2BundleFactory implements IVersionSpecificBundleFactory {
 			BundleTypeEnum theBundleType) {
 		ensureBundle();
 
-		myBundle.setId(UUID.randomUUID().toString());
+		myBundle.setId(UrlUtil.randomUUID().toString());
 
 		ResourceMetadataKeyEnum.PUBLISHED.put(myBundle, InstantDt.withCurrentTime());
 

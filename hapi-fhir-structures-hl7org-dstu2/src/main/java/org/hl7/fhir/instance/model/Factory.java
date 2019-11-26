@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.UUID;
 
+import ca.uhn.fhir.util.UrlUtil;
 import org.hl7.fhir.exceptions.FHIRException;
 import org.hl7.fhir.instance.model.ContactPoint.ContactPointSystem;
 import org.hl7.fhir.instance.model.Narrative.NarrativeStatus;
@@ -171,7 +172,7 @@ public class Factory {
 	}
 
   public static String createUUID() {
-    return "urn:uuid:"+UUID.randomUUID().toString().toLowerCase();
+    return "urn:uuid:"+ UrlUtil.randomUUID().toString().toLowerCase();
   }
 
   public Type create(String name) throws FHIRException {

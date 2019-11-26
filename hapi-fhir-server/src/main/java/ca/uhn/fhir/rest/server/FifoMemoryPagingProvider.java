@@ -21,8 +21,8 @@ package ca.uhn.fhir.rest.server;
  */
 
 import java.util.LinkedHashMap;
-import java.util.UUID;
 
+import ca.uhn.fhir.util.UrlUtil;
 import org.apache.commons.lang3.Validate;
 
 import ca.uhn.fhir.rest.api.server.IBundleProvider;
@@ -50,7 +50,7 @@ public class FifoMemoryPagingProvider extends BasePagingProvider implements IPag
 			myBundleProviders.remove(myBundleProviders.keySet().iterator().next());
 		}
 
-		String key = UUID.randomUUID().toString();
+		String key = UrlUtil.randomUUID().toString();
 		myBundleProviders.put(key, theList);
 		return key;
 	}

@@ -58,6 +58,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import ca.uhn.fhir.util.UrlUtil;
 import org.hl7.fhir.dstu3.context.IWorkerContext;
 import org.hl7.fhir.dstu3.model.AllergyIntolerance;
 import org.hl7.fhir.dstu3.model.AllergyIntolerance.AllergyIntoleranceClinicalStatus;
@@ -397,7 +398,7 @@ public class CCDAConverter {
 
 
 	protected String makeUUIDReference() {
-		return "urn:uuid:"+UUID.randomUUID().toString().toLowerCase();
+		return "urn:uuid:"+ UrlUtil.randomUUID().toString().toLowerCase();
 	}
 
 
